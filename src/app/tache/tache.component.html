@@ -1,0 +1,39 @@
+<div class="container">
+  <form (ngSubmit)="onSubmit(tacheForm)" #tacheForm="ngForm">
+    <div class="mb-3">
+      <label for="tache" class="form-label">Tache</label>
+      <input type="text" [(ngModel)]="tache.title" name="tache" class="form-control" id="tache" placeholder="Enter your Task here" required>
+      <div id="errorMessage" class="form-text text-danger" *ngIf="tacheForm.submitted && tacheForm.controls['tache'].errors?.['required']">Required Field</div>
+      <input type="text" [(ngModel)]="tache.description" name="tache" class="form-control" id="tache" placeholder="Enter your Description here " required>
+      <div id="errorMessage" class="form-text text-danger" *ngIf="tacheForm.submitted && tacheForm.controls['tache'].errors?.['required']">Required Field</div>
+
+    <button id="submitButton" type="submit" class="btn btn-primary btn-sm">Submit</button>
+    </div>
+  </form>
+  <hr>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Taches</th>
+        <th scope="col">Description</th>
+        <th scope="col">Complete</th>
+        <th scope="col">Suprimer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tache of taches">
+        <td>{{ tache.title }}</td>
+        <td>{{ tache.description }}</td>
+        <td>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="tache.completed" name="completed" (change)="updateTache(tache)">
+          </div>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger btn-sm" (click)="supprimerTache(tache)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
